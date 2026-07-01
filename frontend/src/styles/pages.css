@@ -1,0 +1,396 @@
+/* Split from ../styles.css. Keep imports ordered in ../styles.css. */
+
+/* ── 환경 파이프라인 ────────────────────────────────────────── */
+.env-pipeline {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+/* 카드는 .env-pipeline 의 직접 flex 자식 — 화살표 유무와 무관하게 항상 균등폭(flex:1 1 0). */
+
+.env-pipeline-card {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 184px;
+  padding: 16px;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+.env-pipeline-card[role="button"] {
+  cursor: pointer;
+}
+
+.env-pipeline-card-empty {
+  background: #fafbfa;
+  border: 1px dashed #c1c7d0;
+}
+
+.env-pipeline-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.env-pipeline-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.env-pipeline-version {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: var(--color-text);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.1;
+  word-break: break-all;
+}
+
+.env-pipeline-meta {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+}
+
+.env-pipeline-meta > div {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 8px;
+  align-items: baseline;
+}
+
+.env-pipeline-meta dt {
+  color: var(--color-text-faint);
+  font-size: 12px;
+}
+
+.env-pipeline-meta dd {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.env-pipeline-empty {
+  display: grid;
+  place-items: center;
+  flex: 1 1 auto;
+  color: #97a0af;
+  font-size: 14px;
+}
+
+.env-pipeline-arrow {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  color: #b7b9be;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* ── 차트 범례 ──────────────────────────────────────────────── */
+.rt-chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+}
+
+.rt-chart-legend--top {
+  justify-content: flex-end;
+  margin: 0 0 10px;
+}
+
+.rt-chart-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.rt-legend-chip {
+  width: 11px;
+  height: 11px;
+  border-radius: 3px;
+  flex: 0 0 auto;
+}
+
+.rt-chart-tooltip {
+  min-width: 128px;
+  padding: 8px 10px;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  box-shadow: var(--shadow-md);
+  font-size: 12px;
+}
+
+.rt-chart-tooltip-label {
+  margin-bottom: 6px;
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.rt-chart-tooltip-list {
+  display: grid;
+  gap: 5px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.rt-chart-tooltip-item {
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 7px;
+}
+
+.rt-chart-tooltip-chip {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.rt-chart-tooltip-name {
+  font-weight: 600;
+}
+
+.rt-chart-tooltip-value {
+  color: var(--color-text);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── 도넛 ───────────────────────────────────────────────────── */
+.rt-donut {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(160px, 0.8fr);
+  align-items: center;
+  gap: 12px;
+}
+
+.rt-donut-chart {
+  position: relative;
+}
+
+.rt-donut-center {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  pointer-events: none;
+}
+
+.rt-donut-total {
+  color: var(--color-text);
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.rt-donut-caption {
+  margin-top: 4px;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.rt-donut-legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.rt-donut-legend li {
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--color-text-mid);
+}
+
+.rt-donut-legend .rt-legend-chip {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.rt-donut-legend .rt-legend-count {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── 대시보드 개인화 / 카드 컨트롤 ─────────────────────────── */
+.dashboard-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.rt-card-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.rt-card-control {
+  height: 36px;
+  min-height: 36px;
+  max-width: 200px;
+  padding: 0 12px;
+  font-size: 13px;
+}
+
+/* 설정 다이얼로그(블록 개인화) — 컨테이너/오버레이/헤더/푸터는 shadcn Dialog(ui/dialog.tsx)가
+   담당하고, 아래 블록 리스트 항목 스타일만 유지한다. */
+.rt-block-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1 1 auto;
+}
+
+.rt-block-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 9px;
+  background: #fafbfa;
+}
+
+.rt-block-item-over {
+  border-color: var(--color-primary);
+  border-style: dashed;
+}
+
+.rt-block-grip {
+  display: inline-flex;
+  color: var(--color-text-faint);
+  cursor: grab;
+}
+
+.rt-block-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  flex: 1 1 auto;
+}
+
+.rt-block-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+}
+
+/* ── 반응형 ─────────────────────────────────────────────────── */
+@media (max-width: 1180px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+  .env-pipeline {
+    flex-direction: column;
+  }
+
+  .env-pipeline-arrow {
+    justify-content: center;
+    padding: 8px 0;
+    transform: rotate(90deg);
+  }
+
+  .app-shell,
+  .app-shell-collapsed {
+    grid-template-columns: 1fr;
+  }
+
+  .app-sider {
+    position: static;
+    height: auto;
+  }
+
+  .sider-toggle {
+    display: none;
+  }
+
+  .brand-copy,
+  .nav-label,
+  .app-shell-collapsed .brand-copy,
+  .app-shell-collapsed .nav-label {
+    display: block;
+  }
+
+  .app-nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .app-header {
+    padding: 0 20px;
+  }
+
+  .app-content {
+    padding: 20px 16px 40px;
+  }
+
+  .page-header,
+  .dashboard-hero {
+    flex-direction: column;
+  }
+
+  .rt-donut {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-row-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .kpi-grid,
+  .filter-fields,
+  .form-grid,
+  .detail-grid,
+  .change-row {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-edit-form .rt-field {
+    width: 100%;
+  }
+
+  .readonly-bullet-list li {
+    grid-template-columns: 1fr;
+    gap: 4px;
+    padding-left: 0;
+  }
+}

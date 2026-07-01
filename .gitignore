@@ -1,0 +1,46 @@
+.DS_Store
+.gradle/
+build/
+out/
+*.log
+.omc/
+.claude/settings.local.json
+.claude/.DS_Store
+_workspace/
+_workspace_prev/
+
+backend/.gradle/
+backend/build/
+
+frontend/node_modules/
+frontend/dist/
+frontend/.npm/
+frontend/src/.omc/
+frontend/src/pages/.omc/
+backend/src/main/java/**/.omc/
+
+# IDE / Editor
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+*.swp
+
+# OS
+Thumbs.db
+
+# Java
+*.class
+
+# Env
+.env
+.env.local
+.env.*.local
+frontend/.env.local
+frontend/.env.*.local
+
+# Test / coverage / cache
+frontend/coverage/
+frontend/node_modules/.vite/
+*.local

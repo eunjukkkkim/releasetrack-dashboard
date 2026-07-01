@@ -1,0 +1,79 @@
+/* ────────────────────────────────────────────────────────────────────────
+ * Tailwind v4 entry — ReleaseTrack Dashboard (Atlassian design system)
+ *
+ * PREFLIGHT DECISION (Wave 1): preflight(base reset) is INTENTIONALLY EXCLUDED.
+ * The existing styles.css already ships its own reset (`*{box-sizing}`,
+ * `body{margin:0}`, `button/input/select/textarea{font:inherit}`) and a full
+ * `.rt-*` layout system tuned to DESIGN.md. Tailwind v4 preflight applies an
+ * aggressive global reset (`*{margin:0;padding:0;border:0}`,
+ * `h1-h6{font-size/weight:inherit}`, `ol/ul{list-style:none}`) that would risk
+ * regressing existing unclassed elements with no visual-QA loop available in
+ * Wave 1. "기존 화면 보존이 우선" → we import only the `theme` and `utilities`
+ * layers and skip `base`. The new shadcn primitives (Select/Dialog) set their
+ * own borders/box-model explicitly via utilities, so they need no preflight.
+ *
+ * If a future visual QA pass shows shadcn components need preflight, switch the
+ * import below back to `@import "tailwindcss";` (full, includes base/preflight).
+ * ──────────────────────────────────────────────────────────────────────── */
+@layer theme, base, components, utilities;
+
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+@import 'tw-animate-css';
+
+/* ── Design tokens (DESIGN.md — Atlassian) exposed to Tailwind utilities ──── */
+@theme {
+  /* Colors — single chromatic action color is blue #1868db */
+  --color-atlassian-blue: #1868db;
+  --color-atlassian-blue-hover: #1257bd;
+  --color-midnight-navy: #101214;
+  --color-carbon-edge: #292a2e;
+  --color-slate-current: #1c2b42;
+  --color-muted-indigo: #42526e;
+  --color-fog-white: #f0f1f2;
+  --color-blue-tint: #e9f2fe;
+  --color-hairline: #dfe1e6;
+  --color-ash-gray: #b7b9be;
+  --color-amber-accent: #fca700;
+  --color-danger-red: #de350b;
+  --color-overlay-navy: rgba(9, 30, 66, 0.54);
+
+  /* Radius — cards 20px, buttons 28px (full pill), inputs 8px */
+  --radius-card: 20px;
+  --radius-button: 28px;
+  --radius-input: 8px;
+
+  /* Typography — Manrope (display) + Inter (body/UI), loaded in index.html */
+  --font-display: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Navy micro-shadow (DESIGN.md) — depth only when elevation is needed */
+  --shadow-navy: rgba(9, 30, 66, 0.31) 0 0 1px 0, rgba(9, 30, 66, 0.25) 0 1px 1px 0;
+}
+
+/* ── Minimal button reset (preflight is excluded) ─────────────────────────────
+ * preflight 를 통째로 제외했기 때문에, 명시적 스타일이 없는 "naked" <button>
+ * (예: 데이트픽커 클리어 X, react-day-picker 날짜 셀)이 브라우저 기본 버튼
+ * 외형(회색 배경 + 테두리)을 받는다. preflight 의 버튼 리셋 부분만 base 레이어로
+ * 되살려 이 부류를 한 곳에서 정리한다. base 레이어라 우선순위가 utilities 와
+ * unlayered 인 styles.css(.rt-button 등)보다 낮아 기존 버튼에는 영향이 없다
+ * (각자 bg/border/padding 을 명시적으로 지정하므로 그대로 이긴다). */
+@layer base {
+  button {
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: transparent;
+    background-image: none;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    color: inherit;
+    font: inherit;
+    line-height: inherit;
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: default;
+  }
+}

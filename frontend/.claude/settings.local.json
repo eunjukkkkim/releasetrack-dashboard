@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//Users/eunjukim/Desktop/workspace/releaseTrackerDashboard/**)",
+      "Bash(python3 -)",
+      "Bash(grep -A15 '\"scripts\"' package.json)",
+      "Bash(ls -la *.tsbuildinfo)",
+      "Bash(ls -d node_modules/.vite)",
+      "Bash(/Users/eunjukim/Desktop/workspace/releaseTrackerDashboard/frontend/node_modules/.bin/tsc --version)",
+      "Bash(npm run *)"
+    ]
+  }
+}

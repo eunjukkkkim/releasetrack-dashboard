@@ -1,0 +1,367 @@
+/* Split from ../styles.css. Keep imports ordered in ../styles.css. */
+
+:root {
+  /* ── 라이트 테마 토큰 (Atlassian design system — docs/DESIGN.md) ── */
+  --color-page: #ffffff;
+  --color-card: #ffffff;
+  --color-border: #dfe1e6;
+  --color-row-divider: #f0f1f2;
+  --color-text: #101214;
+  --color-text-mid: #42526e;
+  --color-text-muted: #42526e;
+  --color-text-faint: #6b778c;
+  --color-primary: #1868db;
+  --color-primary-hover: #1257bd;
+  --color-primary-tint: #e9f2fe;
+  --color-soft: #f0f1f2;
+  --color-pure-white: #ffffff;
+
+  /* 사이드바(다크 패널 #101214) */
+  --color-sider-bg: #101214;
+  --color-sider-text: #c1c7d0;
+  --color-sider-text-inactive: #9fa6b2;
+  --color-sider-text-faint: #8993a4;
+  --color-sider-active-bg: #1868db;
+  --color-sider-hover-bg: rgba(255, 255, 255, 0.08);
+
+  /* 헤더바 */
+  --color-header-bg: #ffffff;
+
+  /* 폰트 — Manrope(디스플레이/헤딩) + Inter(본문/UI) */
+  --font-display:
+    "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --font-body:
+    "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+
+  /* 섀도우 — 네이비 틴트(rgba(9,30,66,...)), 기본 flat */
+  --shadow-md:
+    rgba(9, 30, 66, 0.31) 0 0 1px 0, rgba(9, 30, 66, 0.25) 0 1px 1px 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-page);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  letter-spacing: -0.01em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.rt-card a:hover,
+.page-header a:hover,
+.dashboard-hero a:hover {
+  color: var(--color-primary);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/* ── 앱 셸 ──────────────────────────────────────────────────── */
+.app-shell {
+  display: grid;
+  grid-template-columns: var(--sider-width, 236px) minmax(0, 1fr);
+  min-height: 100vh;
+  background: var(--color-page);
+  transition: grid-template-columns 160ms ease;
+}
+
+.app-shell-collapsed {
+  grid-template-columns: 80px minmax(0, 1fr);
+}
+
+/* 드래그 리사이즈 중에는 transition 제거 — 커서에 즉시 반응 */
+.app-shell-resizing,
+.app-shell-resizing .sider-toggle,
+.app-shell-resizing .sider-resizer {
+  transition: none;
+}
+
+/* 접힘↔펼침 경계를 넘는 순간에만 transition 복원 — 스냅을 부드럽게 */
+.app-shell-snapping,
+.app-shell-snapping .sider-toggle,
+.app-shell-snapping .sider-resizer {
+  transition:
+    grid-template-columns 180ms ease,
+    left 180ms ease;
+}
+
+.app-sider {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 18px 14px;
+  background: var(--color-sider-bg);
+  border-right: 1px solid rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+.sider-top {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  padding: 6px;
+  color: var(--color-pure-white);
+}
+
+.brand:hover {
+  color: var(--color-pure-white);
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  background: transparent;
+  color: #ffffff;
+  font-weight: 700;
+  flex: 0 0 auto;
+  overflow: hidden;
+}
+
+.brand-mark-img {
+  width: 100%;
+  height: 100%;
+  padding: 2px;
+  object-fit: contain;
+  border-radius: inherit;
+  display: block;
+}
+
+.brand-title {
+  color: var(--color-pure-white);
+  font-family: var(--font-display);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.brand-subtitle {
+  margin-top: 2px;
+  color: var(--color-sider-text-faint);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.sider-toggle {
+  /* 사이드바↔대시보드 경계선(확장 236px / 접힘 80px) 정중앙에 고정 */
+  position: fixed;
+  top: 50px;
+  left: var(--sider-width, 236px);
+  transform: translateX(-50%);
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  color: var(--color-text-mid);
+  background: #ffffff;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  transition:
+    left 160ms ease,
+    background-color 120ms ease,
+    color 120ms ease,
+    border-color 120ms ease;
+}
+
+.sider-toggle:hover {
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+  background: var(--color-primary-tint);
+}
+
+/* 사이드바 너비 드래그 핸들 — 경계선 위 세로 스트립 */
+.sider-resizer {
+  position: fixed;
+  top: 0;
+  left: var(--sider-width, 236px);
+  transform: translateX(-50%);
+  width: 6px;
+  height: 100vh;
+  z-index: 40;
+  cursor: col-resize;
+  background: transparent;
+  transition: background-color 120ms ease;
+}
+
+.sider-resizer:hover,
+.sider-resizer.is-dragging {
+  background: rgba(24, 104, 219, 0.35);
+}
+
+.app-nav {
+  display: grid;
+  gap: 4px;
+}
+
+.app-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  font-size: 13px;
+  color: var(--color-sider-text-inactive);
+  background: transparent;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+}
+
+.nav-icon {
+  display: block;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+}
+
+.nav-label {
+  white-space: nowrap;
+}
+
+.app-nav-link:hover {
+  color: #ffffff;
+  background: var(--color-sider-hover-bg);
+}
+
+.app-nav-link-active,
+.app-nav-link-active:hover {
+  background: var(--color-sider-active-bg);
+  color: #ffffff;
+}
+
+.app-main {
+  min-width: 0;
+  background: var(--color-page);
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 54px;
+  padding: 0 32px;
+  color: var(--color-text-mid);
+  font-size: 13px;
+  background: var(--color-header-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.app-header span:last-child {
+  color: var(--color-text-faint);
+}
+
+.app-content {
+  width: 100%;
+  margin: 0 auto;
+  padding: 28px 32px 56px;
+}
+
+.app-shell-collapsed .app-sider {
+  padding-inline: 12px;
+}
+
+.app-shell-collapsed .sider-top {
+  display: grid;
+  justify-items: center;
+}
+
+.app-shell-collapsed .brand {
+  justify-content: center;
+  padding-inline: 0;
+}
+
+.app-shell-collapsed .brand-copy,
+.app-shell-collapsed .nav-label {
+  display: none;
+}
+
+.app-shell-collapsed .sider-toggle,
+.app-shell-collapsed .sider-resizer {
+  left: 80px;
+}
+
+.app-shell-collapsed .app-nav-link {
+  justify-content: center;
+  padding-inline: 0;
+}
+
+/* ── 페이지 공통 ────────────────────────────────────────────── */
+.page-stack {
+  display: grid;
+  gap: 22px;
+  width: 100%;
+}
+
+/* 상태분포·Top5 페어를 한 행 50/50 으로 묶는 래퍼. 좁은 화면(<=820px)에서는 1열로 스택된다. */
+.dashboard-row-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  align-items: stretch;
+}
+
+.page-header,
+.dashboard-hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.page-header h1,
+.dashboard-hero h1 {
+  margin: 4px 0 6px;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+}
+
+.page-header p,
+.dashboard-hero p {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+.rt-eyebrow {
+  color: var(--color-primary);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
